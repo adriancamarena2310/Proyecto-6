@@ -68,4 +68,9 @@ getFieldError( field: string ): string | null {
   return null;
 }
 
+onDeleteFavorite( index:number ):void {
+  this.favoriteGames.removeAt(index);
+}
+
+
 }
