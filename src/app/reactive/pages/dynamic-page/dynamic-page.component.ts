@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-dynamic-page',
@@ -27,15 +27,20 @@ export class DynamicPageComponent implements OnInit {
     ])
   });
 
+  public newFavorite: FormControl = new FormControl('', Validators.required );
+
   constructor( private fb: FormBuilder ) {}
 
-onSubmit():void {
-  if (this.myForm.invalid){
-    this.myForm.markAllAsTouched();
-    return;
-  }
-console.log(this.myForm.value)
-  this.myForm.reset();
+  onSubmit():void {
+
+    if ( this.myForm.invalid ) {
+      this.myForm.markAllAsTouched();
+      return;
+    }
+
+    console.log(this.myForm.value);
+    (this.myForm.controls['favoriteGames'] as FormArray ) = this.fb.array([]);
+    this.myForm.reset();
 }
 
 isValidField( field: string ): boolean | null {
@@ -72,5 +77,18 @@ onDeleteFavorite( index:number ):void {
   this.favoriteGames.removeAt(index);
 }
 
+onAddToFavorites():void {
+
+  if ( this.newFavorite.invalid ) return;
+  const newGame = this.newFavorite.value;
+
+  // this.favoriteGames.push(  new FormControl( newGame, Validators.required ) );
+  this.favoriteGames.push(
+    this.fb.control( newGame, Validators.required )
+  );
+
+  this.newFavorite.reset();
+
+}
 
 }
