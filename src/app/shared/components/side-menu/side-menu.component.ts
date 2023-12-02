@@ -7,11 +7,14 @@ interface MenuItem {
 
 
 @Component({
-  selector: 'shared-side-menu',
+  selector:'shared-side-menu',
   templateUrl: './side-menu.component.html',
   styles: [
   ]
 })
+
+
+
 export class SideMenuComponent {
 
   public reactiveMenu: MenuItem[] = [
