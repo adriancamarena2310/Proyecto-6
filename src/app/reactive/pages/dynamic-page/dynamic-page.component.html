@@ -11,8 +11,8 @@ autocomplete="off">
             <input class="form-control"
                    formControlName="name"
                    placeholder="Nombre de la persona">
-            <span class="form-text text-danger">
-                   error message
+            <span *ngIf="isValidField('name')" class="form-text text-danger">
+              {{ getFieldError('name') }}
             </span>
         </div>
     </div>
@@ -53,7 +53,7 @@ autocomplete="off">
                   Eliminar
                </button>
               </div>
-              <span  class="form-text text-danger">
+              <span *ngIf="isValidFieldInArray(favoriteGames, i)" class="form-text text-danger">
                 Este campo es requerido
               </span>
 
