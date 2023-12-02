@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
+const rtx5090 = {
+  name: 'RTX 5090',
+  price: 2500,
+  inStorage: 6,
+}
+
 @Component({
   selector: 'app-basic-page',
   templateUrl: './basic-page.component.html'
@@ -23,9 +29,14 @@ constructor (private fb:FormBuilder){}
 onSave():void{
   if ( this.myForm.invalid )return;
   console.log(this.myForm.value);
+
+
+  this.myForm.reset({price: 0, inStorage: 0});
 }
-  ngOnInit() {
-  }
+
+ngOnInit(): void {
+  this.myForm.reset( rtx5090 );
+}
 
 
 }
