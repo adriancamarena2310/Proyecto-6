@@ -15,13 +15,16 @@ export class RegisterPageComponent implements OnInit {
 
 
   public myForm: FormGroup = this.fb.group({
-    name:['',[Validators.required, Validators.pattern(customValidators.firstNameAndLastnamePattern)]],
-    email:['',[Validators.required, Validators.pattern(this.validatorsServiice.emailPattern) ],[this.emailVaidator]],
-
-  // email:['',[Validators.required, Validators.pattern(this.validatorsServiice.emailPattern) ],[new EmailValidator()]],
-    username:['',[Validators.required, customValidators.cantBeStrider]],
-    password:['',[Validators.required, Validators.minLength(6)]],
-    password2:['',[Validators.required]],
+    name: ['', [ Validators.required, Validators.pattern( this.validatorsService.firstNameAndLastnamePattern )  ]],
+    // email: ['', [ Validators.required, Validators.pattern( this.validatorsService.emailPattern )], [ new EmailValidator() ]],
+    email: ['', [ Validators.required, Validators.pattern( this.validatorsService.emailPattern )], [ this.emailVaidator ]],
+    username: ['', [ Validators.required, this.validatorsService.cantBeStrider ]],
+    password: ['', [ Validators.required, Validators.minLength(6) ]],
+    password2: ['', [ Validators.required ]],
+  }, {
+    validators: [
+      this.validatorsService.isFieldOneEqualFieldTwo('password','password2')
+    ]
   });
 
     isValidField( field: string ) {
@@ -33,7 +36,7 @@ export class RegisterPageComponent implements OnInit {
   }
 
   constructor( private fb: FormBuilder,
-    private validatorsServiice: ValidatorsService,
+    private validatorsService: ValidatorsService,
     private emailVaidator: EmailValidator
     ) {}
 }
